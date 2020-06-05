@@ -1,11 +1,9 @@
 library(scater, quietly = TRUE)
-
 options(stringsAsFactors = FALSE)
-
 #setwd("~/Work/Writing/Papers/scPlasmodium/eLife/Supplementary Data/")
 
-# Read in data
 
+# Read in data
 normalize.reid.data=function(counts.df,meta.df){
   samples=intersect(colnames(counts.df),rownames(meta.df))
   counts.mat=as.matrix(counts.df[,samples])
@@ -33,9 +31,3 @@ normalize.reid.data=function(counts.df,meta.df){
   )
   return(sce)
 }
-
-
-
-
-
-
