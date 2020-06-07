@@ -30,7 +30,7 @@ library(psych)
 library(pvclust)
 #library(SIMLR)
 #library(diffusionMap)
-#setwd('/Users/mtanga/Documents/coding/R/rosetting/')
+#setwd('~/rosetting')
 
 std.stages.col.list=list('ring'='green','late.ring'='green4',
                          'early.trophozoite'='blue',
@@ -107,48 +107,6 @@ gene.cat.col.names=c( "#079933",  "#ecfc5f" ,  "gray28"  ,  'firebrick' ,"#e76ff
 names(gene.cat.col.names)=gene.cat.names
 
 
-get.col.factor=function(col.factor){
-  col.categories=unique(col.factor)
-  #all.colors=c('green','blue','red','orange','purple')
-  col.list=list()
-  color.names=rainbow(length(col.categories))
-  #color.names=colorpanel(n=length(col.categories),'green','blue','red')
-  #color.names=sample(colours(),length(col.categories))
-  for (m in  1 : length(col.categories)){
-    col.item=as.character(col.categories[m])
-    col.list[[col.item]]=color.names[m] 
-  }
-  out.col=as.character(unlist(lapply(col.factor,function(col.factor.item){
-    col.name=as.character(col.list[[col.factor.item]])
-  })))
-  legend.text=names(col.list)
-  legend.cols=as.character(unlist(col.list))
-  out.list=list(col.str=out.col,legend.str=legend.text,legend.cols=legend.cols)
-  return(out.list)
-}
-
-
-get.pch.factor=function(pch.factor){
-  col.categories=unique(col.factor)
-  all.colors=c('green','blue','red','orange','purple')
-  col.list=list()
-  color.names=rainbow(length(col.categories))
-  #color.names=colorpanel(n=length(col.categories),'green','blue','red')
-  #color.names=sample(colours(),length(col.categories))
-  for (m in  1 : length(col.categories)){
-    col.item=as.character(col.categories[m])
-    col.list[[col.item]]=color.names[m] 
-  }
-  out.col=as.character(unlist(lapply(col.factor,function(col.factor.item){
-    col.name=as.character(col.list[[col.factor.item]])
-  })))
-  legend.text=names(col.list)
-  legend.cols=as.character(unlist(col.list))
-  out.list=list(col.str=out.col,legend.str=legend.text,legend.cols=legend.cols)
-  return(out.list)
-}
-
-
 #Mapping proportions
 plot.samples.mapping.proportions.barplot=function(df,cut.off=0,title.str='Test'){
   samples=rownames(df)
@@ -188,7 +146,8 @@ plot.samples.mapping.proportions.barplot=function(df,cut.off=0,title.str='Test')
   temp.mat=data.frame(temp.mat[,2:4])
   temp.mat=as.matrix(temp.mat)
   #temp.barplot.2=barplot2(t(temp.mat),main=title.str,col=c('red','green','blue'),ylab='',xlab='',beside=F,las=2, cex.names = .2,names.arg = names.label)
-  temp.barplot.2=barplot2(t(temp.mat),main=title.str,col=c('red','green','blue'),ylab='',xlab='',beside=F,las=2, cex.names = .2,las=2,border = NA,xaxt='none')
+  temp.barplot.2=barplot2(t(temp.mat),main=title.str,col=c('red','green','blue'),ylab='',xlab='',beside=F,las=2, 
+                          cex.names = .2,las=2,border = NA,xaxt='none')
   #text(temp.barplot.2, par("usr")[3], labels = samples.names, srt = 90, adj = c(1.1,1.1), xpd = T, cex=.3)
   #plot.new()
   #legend('center',legend=c('Unique','Multimap','Unmapped'),fill=c('red','green','blue'),cex=1.5,box.lty = 0)
@@ -245,7 +204,6 @@ plot.samples.mapping.proportions.barplot=function(df,cut.off=0,title.str='Test')
   out.list=list(mapping=mapping.df,unmapped=unmapped.df)
   return(out.list)
 }
-
 
 #Compares the batch eight samples libraries and mapping profiles
 #No. of detected genes
@@ -321,8 +279,8 @@ plot.samples.unique.mapping.hist=function(df,cut.off=0,title.str='Test'){
   legend('center',legend=c(rep('',times = 3)),fill=c('red','green','blue'),cex = 1.5,box.lty = 0)
 }
 
-
-plot.samples.chrom.mapping.proportions.barplot.for.subset.samples=function(meta.df,chrom.mapping.df,title.str='test',breaks.interval=100){
+plot.samples.chrom.mapping.proportions.barplot.for.subset.samples=function(meta.df,chrom.mapping.df,title.str='test',
+                                                                           breaks.interval=100){
   no.samples=dim(meta.df)[1]
   breaks=seq(1,to =no.samples,by = breaks.interval)
   no.breaks=length(breaks)
@@ -765,7 +723,6 @@ highlight.sexual.markers.expression.in.pca.plot=function(in.rpkm.df,trans=F,meta
     print(sample.ggplot)
   }
 }
-
 
 filter.rpkm.less.than.cutoff=function(df,rpkm.cutoff=0,no.samples=1){
   df=df[rownames(df)[rowSums(df>rpkm.cutoff)>=no.samples],]
@@ -1444,7 +1401,6 @@ plot.scatter.per.replicate.bulk.sample=function(rpkm.df,meta.df){
     #plot.df.scatter(rpkm.df =temp.rpkm.df,title.str =development.stage,col=temp.col)
   }
 }
-
 
 plot.per.development.stage.gene.variation=function(rpkm.df,meta.df){
   meta.df=meta.df[colnames(rpkm.df),]
@@ -2960,7 +2916,7 @@ plot.pf.200.10k.samples.heterogeneity.based.on.normalized.counts=function(rpkm.d
   plot.new()
   legend('center',legend =std.stages.col.abbrev.legend.str, fill = std.stages.col.legend.fill,cex = 1.5,box.lty = 0)
 }
-get.sig.genes.from.scde=function(scde.res,return.genes=F,out.folder='~/Documents/coding/R/malaria/rosetting/data_files/'){
+get.sig.genes.from.scde=function(scde.res,return.genes=F,out.folder='~/rosetting/data_files/'){
   groups=names(scde.res)
   len.groups=length(groups)
   out.list=list()
@@ -3636,73 +3592,7 @@ plot.samples.pca.tsne.clustering=function(rpkm.df,meta.df,title.str='Samples t-s
   #legend('center',legend=names(samples.col.list),fill=as.character(samples.col.list),cex=.5)
   return(temp.out.list)
 }
-get.color.brewer.list=function(in.vec){
-  out.list=list()
-  col.factor=in.vec
-  col.categories=unique(col.factor)
-  color.names=brewer.pal(n = length(col.categories),name = 'Set3')
-  #color.names=brewer.pal(n = length(col.categories),name = 'Pastel1')
-  col.list=list()
-  for (m in  1 : length(col.categories)){
-    col.item=as.character(col.categories[m])
-    col.list[[col.item]]=color.names[m] 
-  }
-  out.col=as.character(unlist(lapply(col.factor,function(col.factor.item){
-    col.name=as.character(col.list[[col.factor.item]])
-  })))
-  legend.text=names(col.list)
-  legend.cols=as.character(unlist(col.list))
-  out.list=list(col.str=out.col,legend.str=legend.text,legend.cols=legend.cols)
-  return(out.list)
-}
-get.color.list.for.pheatmap=function(in.vec){
-  out.list=list()
-  col.factor=in.vec
-  col.categories=sort(unique(col.factor))
-  color.names=brewer.pal(n = length(col.categories),name = 'Set3')
-  #color.names=rainbow(n =length(col.categories) )
-  col.list=c()
-  for (m in  1 : length(col.categories)){
-    col.list=append(col.list,color.names[m],after = length(col.list))
-  }
-  names(col.list)=col.categories
-  return(col.list)
-}
-get.color.rainbow.list.for.pheatmap=function(in.vec){
-  out.list=list()
-  col.factor=in.vec
-  col.categories=sort(unique(col.factor))
-  color.names=rainbow(n =length(col.categories) )
-  col.list=c()
-  for (m in  1 : length(col.categories)){
-    col.list=append(col.list,color.names[m],after = length(col.list))
-  }
-  names(col.list)=col.categories
-  return(col.list)
-}
-get.distinct.colour.list.for.pheatmap=function(in.vec){
-  out.list=list()
-  col.factor=in.vec
-  col.categories=sort(unique(col.factor))
-  color.names=rainbow(n =length(col.categories) )
-  col.list=randomcoloR::randomColor(count = length(col.categories))
-  names(col.list)=col.categories
-  return(col.list)
-}
-get.color.pastel.list.for.pheatmap=function(in.vec){
-  out.list=list()
-  col.factor=in.vec
-  col.categories=sort(unique(col.factor))
-  #brewer.pal(n = length(col.categories),name = 'Pastel')
-  color.names=brewer.pal(n = length(col.categories), name = "Pastel1")
-  #color.names=rainbow(n =length(col.categories) )
-  col.list=c()
-  for (m in  1 : length(col.categories)){
-    col.list=append(col.list,color.names[m],after = length(col.list))
-  }
-  names(col.list)=col.categories
-  return(col.list)
-}
+
 plot.tsne.object=function(tsne.out.mat,col.factor.str){
   samples.col.list=get.col.factor(col.factor = col.factor.str)
   plot(tsne.out.mat[,1], tsne.out.mat[,2],xlab='first dimension',ylab='second dimension', main='Samples pca and t-sne plot',col=samples.col.list$col.str,pch=19)
@@ -14049,6 +13939,7 @@ plot.heatmap = function(in.df,title.str='Test plot',cluster_rows=T,cluster_cols=
                border_color = border_color) 
     }
 }
+
 get.rainbow.color.vec=function(in.vec){
   col.factor=in.vec
   col.categories=sort(unique(col.factor))
@@ -14060,6 +13951,114 @@ get.rainbow.color.vec=function(in.vec){
   names(col.list)=col.categories
   return(col.list)
 }
+               
+get.col.factor=function(col.factor){
+  col.categories=unique(col.factor)
+  #all.colors=c('green','blue','red','orange','purple')
+  col.list=list()
+  color.names=rainbow(length(col.categories))
+  #color.names=colorpanel(n=length(col.categories),'green','blue','red')
+  #color.names=sample(colours(),length(col.categories))
+  for (m in  1 : length(col.categories)){
+    col.item=as.character(col.categories[m])
+    col.list[[col.item]]=color.names[m] 
+  }
+  out.col=as.character(unlist(lapply(col.factor,function(col.factor.item){
+    col.name=as.character(col.list[[col.factor.item]])
+  })))
+  legend.text=names(col.list)
+  legend.cols=as.character(unlist(col.list))
+  out.list=list(col.str=out.col,legend.str=legend.text,legend.cols=legend.cols)
+  return(out.list)
+}
+
+get.pch.factor=function(pch.factor){
+  col.categories=unique(col.factor)
+  all.colors=c('green','blue','red','orange','purple')
+  col.list=list()
+  color.names=rainbow(length(col.categories))
+  #color.names=colorpanel(n=length(col.categories),'green','blue','red')
+  #color.names=sample(colours(),length(col.categories))
+  for (m in  1 : length(col.categories)){
+    col.item=as.character(col.categories[m])
+    col.list[[col.item]]=color.names[m] 
+  }
+  out.col=as.character(unlist(lapply(col.factor,function(col.factor.item){
+    col.name=as.character(col.list[[col.factor.item]])
+  })))
+  legend.text=names(col.list)
+  legend.cols=as.character(unlist(col.list))
+  out.list=list(col.str=out.col,legend.str=legend.text,legend.cols=legend.cols)
+  return(out.list)
+}
+get.color.brewer.list=function(in.vec){
+  out.list=list()
+  col.factor=in.vec
+  col.categories=unique(col.factor)
+  color.names=brewer.pal(n = length(col.categories),name = 'Set3')
+  #color.names=brewer.pal(n = length(col.categories),name = 'Pastel1')
+  col.list=list()
+  for (m in  1 : length(col.categories)){
+    col.item=as.character(col.categories[m])
+    col.list[[col.item]]=color.names[m] 
+  }
+  out.col=as.character(unlist(lapply(col.factor,function(col.factor.item){
+    col.name=as.character(col.list[[col.factor.item]])
+  })))
+  legend.text=names(col.list)
+  legend.cols=as.character(unlist(col.list))
+  out.list=list(col.str=out.col,legend.str=legend.text,legend.cols=legend.cols)
+  return(out.list)
+}
+get.color.list.for.pheatmap=function(in.vec){
+  out.list=list()
+  col.factor=in.vec
+  col.categories=sort(unique(col.factor))
+  color.names=brewer.pal(n = length(col.categories),name = 'Set3')
+  #color.names=rainbow(n =length(col.categories) )
+  col.list=c()
+  for (m in  1 : length(col.categories)){
+    col.list=append(col.list,color.names[m],after = length(col.list))
+  }
+  names(col.list)=col.categories
+  return(col.list)
+}
+get.color.rainbow.list.for.pheatmap=function(in.vec){
+  out.list=list()
+  col.factor=in.vec
+  col.categories=sort(unique(col.factor))
+  color.names=rainbow(n =length(col.categories) )
+  col.list=c()
+  for (m in  1 : length(col.categories)){
+    col.list=append(col.list,color.names[m],after = length(col.list))
+  }
+  names(col.list)=col.categories
+  return(col.list)
+}
+get.distinct.colour.list.for.pheatmap=function(in.vec){
+  out.list=list()
+  col.factor=in.vec
+  col.categories=sort(unique(col.factor))
+  color.names=rainbow(n =length(col.categories) )
+  col.list=randomcoloR::randomColor(count = length(col.categories))
+  names(col.list)=col.categories
+  return(col.list)
+}
+get.color.pastel.list.for.pheatmap=function(in.vec){
+  out.list=list()
+  col.factor=in.vec
+  col.categories=sort(unique(col.factor))
+  #brewer.pal(n = length(col.categories),name = 'Pastel')
+  color.names=brewer.pal(n = length(col.categories), name = "Pastel1")
+  #color.names=rainbow(n =length(col.categories) )
+  col.list=c()
+  for (m in  1 : length(col.categories)){
+    col.list=append(col.list,color.names[m],after = length(col.list))
+  }
+  names(col.list)=col.categories
+  return(col.list)
+}
+                             
 #Installs a package given the name
 install.bioconductor.package=function(package.name){
   source("https://bioconductor.org/biocLite.R")
