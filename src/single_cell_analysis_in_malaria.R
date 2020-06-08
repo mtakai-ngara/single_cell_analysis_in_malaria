@@ -859,7 +859,6 @@ plot.samples.correlations.heatmap = function(in.rpkm.df,title.str='Test plot',in
   return(out.list)
   }
 
-
 plot.samples.idc.expression.heatmap = function(in.rpkm.df,title.str='Test plot',in.meta.df,marker.df){
   col.pelette=colorRampPalette(c("darkgray","gray","white",
                                  "yellow","orange",'red'))(5)

@@ -1,0 +1,83 @@
+source('rosetting.R')
+pdf(default.pdf)
+plot.samples.correlations.heatmap(in.rpkm.df=all.pop.blood.grp.A.atleast.500.genes.100k.unique.including.batch.eight.reads.artefacts.filt.tn5.rpkm.df,title.str='Test',in.meta.df=all.pop.blood.grp.A.atleast.500.genes.100k.unique.including.batch.eight.reads.artefacts.filt.meta.df,filter.non.var.rows=T)
+dev.off()
+
+
+source('rosetting.R')
+temp.df=correct.batch.effect(rpkm.df=all.pop.blood.grp.A.atleast.500.genes.100k.unique.including.batch.eight.reads.artefacts.filt.tn5.rpkm.df,meta.df=all.pop.blood.grp.A.atleast.500.genes.100k.unique.including.batch.eight.reads.artefacts.filt.meta.df,log.rpkm = T,par.prior = F)
+
+source('rosetting.R')
+pdf(default.pdf)
+plot.surface.markers.mean.expression.dotplot.per.timepoint(rpkm.df = all.sc.blood.group.A.atleast.200.genes.10k.unique.reads.artefacts.filt.rpkm.df,meta.df = all.sc.blood.group.A.atleast.200.genes.10k.unique.reads.artefacts.filt.meta.df,markers.df = surface.markers.df)
+dev.off()
+
+
+source('rosetting.R')
+pdf(default.pdf)
+par(mfrow=c(2,2))
+plot.samples.mapping.proportions.barplot(all.sc.blood.group.A.atleast.200.genes.high.cor.within.cor.cut.off.2.meta.df,0,'Test')
+dev.off()
+
+
+source('rosetting.R')
+test.df=filter.sc(sc.rpkm.df = all.sc.blood.grp.A.rpkm.rRNA.filt.df,sc.meta.df = all.sc.meta.blood.grp.A.df)
+
+
+source('rosetting.R')
+pdf(default.pdf)
+run.qc.per.timepoint(rpkm.df=temp.df,meta.df=test.df)
+dev.off()
+
+source('rosetting.R')
+pdf(default.pdf)
+plot.df.scatter(rpkm.df=temp.df,title.str='Test')
+dev.off()
+
+
+source('rosetting.R')
+pdf(default.pdf)
+plot.all.pairwise.scatter.per.development.stage(all.sc.blood.group.A.atleast.200.genes.high.cor.within.cor.cut.off.2.rpkm.df,all.sc.blood.group.A.atleast.200.genes.high.cor.within.cor.cut.off.2.meta.df)
+dev.off()
+
+source('rosetting.R')
+pdf(default.pdf)
+par(mfrow=c(2,2))
+plot.average.cell.to.pop.cor.per.timepoint(all.sc.blood.group.A.atleast.200.genes.high.cor.within.cor.cut.off.2.rpkm.df,all.sc.blood.group.A.atleast.200.genes.high.cor.within.cor.cut.off.2.meta.df,all.pop.blood.grp.A.atleast.500.genes.rpkm.df,all.pop.blood.grp.A.atleast.500.genes.meta.df)
+dev.off()
+
+
+source('rosetting.R')
+pdf(default.pdf)
+par(mfrow=c(2,2))
+plot.sc.and.pop.cor.boxplots(sc.rpkm.df = all.sc.blood.group.A.atleast.200.genes.high.cor.within.cor.cut.off.2.rpkm.df,sc.meta.df = all.sc.blood.group.A.atleast.200.genes.high.cor.within.cor.cut.off.2.meta.df,pop.rpkm.df = all.pop.blood.grp.A.atleast.500.genes.rpkm.df,pop.meta.df = all.pop.blood.grp.A.atleast.500.genes.meta.df)
+dev.off()
+
+
+source('rosetting.R')
+pdf(default.pdf)
+plot.samples.idc.expression.heatmap.per.sub.population(in.rpkm.df = all.sc.blood.group.A.atleast.500.genes.10k.unique.reads.artefacts.filt.rpkm.df,title.str = '',in.meta.df = all.sc.blood.group.A.atleast.500.genes.10k.unique.reads.artefacts.filt.meta.df,marker.df = plot.idc.markers.df)
+dev.off()
+
+
+source('rosetting.R')
+pdf(default.pdf)
+score.development.stage.markers.per.cell(rpkm.df = all.sc.blood.group.A.atleast.500.genes.10k.unique.reads.artefacts.filt.tpm.df,meta.df = all.sc.blood.group.A.atleast.500.genes.10k.unique.reads.artefacts.filt.meta.df,markers.df = all.plos.one.markers.df)
+dev.off()
+
+
+source('rosetting.R')
+pdf(default.pdf)
+plot.contamint.read.proportions(sc.batch.three.contaminats.mapping.profile.new.version.virus.df,'Viral genomes mapping')
+dev.off()
+
+
+source('rosetting.R')
+pdf(default.pdf)
+plot.timepoint.gene.detection.rate(temp.all.sc.blood.group.A.atleast.200.genes.high.cor.within.cor.cut.off.2.list$rpkm,temp.all.sc.blood.group.A.atleast.200.genes.high.cor.within.cor.cut.off.2.list$meta)
+dev.off()
+
+source('rosetting.R')
+pdf(default.pdf)
+plot.development.stage.gene.detection.rate(all.sc.rpkm.df,all.sc.meta.df)
+dev.off()
